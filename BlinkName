@@ -1,0 +1,66 @@
+//This task is blinking my name 'SEERAT' in a morse code. 
+#include "thingProperties.h"
+
+void setup() {
+  
+  pinMode(LED_BUILTIN,OUTPUT);
+  Serial.begin(9600);
+  delay(1000); 
+  initProperties();
+
+  
+  ArduinoCloud.begin(ArduinoIoTPreferredConnection);
+  
+  
+  setDebugMessageLevel(2);
+  ArduinoCloud.printDebugInfo();
+}
+
+void dot() {
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(1000);
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(1000);
+}
+
+void dash() {
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(1500);
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(1500);
+}
+
+
+void loop() {
+  ArduinoCloud.update();
+  // Your code here 
+  //S
+  dot(); dot(); dot();  
+  delay(2500); //this delay is for symbol space
+
+  //E
+  dot(); 
+  delay(2500);
+
+  //E
+  dot(); 
+  delay(2500);
+
+  //R
+  dot(); dash(); dot();
+  delay(2500);
+
+  //A
+  dot(); dash();
+  delay(2500);
+  
+  //T
+  dash(); 
+  delay(2500);
+
+}
+
+void onLedChange()
+{
+  digitalWrite(LED_BUILTIN,led); 
+}
